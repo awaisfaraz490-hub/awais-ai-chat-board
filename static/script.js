@@ -1,26 +1,12 @@
 const API_URL = "";
 
-
-const pdfInput =
-    document.getElementById("pdfInput");
-
-const pdfList =
-    document.getElementById("pdfList");
-
-const chatMessages =
-    document.getElementById("chatMessages");
-
-const questionInput =
-    document.getElementById("questionInput");
-
-const sendBtn =
-    document.getElementById("sendBtn");
-
-const clearChatBtn =
-    document.getElementById("clearChatBtn");
-
-const status =
-    document.getElementById("status");
+const pdfInput = document.getElementById("pdfInput");
+const pdfList = document.getElementById("pdfList");
+const chatMessages = document.getElementById("chatMessages");
+const questionInput = document.getElementById("questionInput");
+const sendBtn = document.getElementById("sendBtn");
+const clearChatBtn = document.getElementById("clearChatBtn");
+const status = document.getElementById("status");
 
 
 // =========================
@@ -28,35 +14,25 @@ const status =
 // =========================
 
 async function loadPDFs() {
-
     try {
-
-        const response =
-            await fetch(
-                `${API_URL}/pdfs`,
-                {
-                    credentials: "same-origin"
-                }
-            );
-
-        const data =
-            await response.json();
-
-        displayPDFs(
-            data.pdfs
+        const response = await fetch(
+            `${API_URL}/pdfs`,
+            {
+                credentials: "same-origin"
+            }
         );
 
+        const data = await response.json();
+
+        displayPDFs(data.pdfs);
     }
 
     catch (error) {
-
         console.error(
             "Could not load PDFs:",
             error
         );
-
     }
-
 }
 
 
@@ -64,12 +40,9 @@ async function loadPDFs() {
 // DISPLAY PDFs
 // =========================
 
-function displayPDFs(
-    pdfs
-) {
+function displayPDFs(pdfs) {
 
     pdfList.innerHTML = "";
-
 
     if (!pdfs.length) {
 
@@ -79,66 +52,60 @@ function displayPDFs(
             </p>`;
 
         return;
-
     }
 
+    pdfs.forEach(pdf => {
 
-    pdfs.forEach(
-        pdf => {
+        const item =
+            document.createElement("div");
 
-            const item =
-                document.createElement(
-                    "div"
-                );
+        item.className = "pdf-item";
 
-            item.className =
-                "pdf-item";
+        const lowerName =
+            pdf.filename.toLowerCase();
 
-
-            const lowerName =
-                pdf.filename.toLowerCase();
-
-            const isImage =
-                [".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp"]
-                    .some(ext => lowerName.endsWith(ext));
-
-            const icon =
-                isImage ? "🖼️" : "📄";
-
-
-            item.innerHTML = `
-
-                <input
-                    type="checkbox"
-                    class="pdf-checkbox"
-                    value="${pdf.uuid}"
-                    checked
-                >
-
-                <span
-                    class="pdf-name"
-                    title="${pdf.filename}"
-                >
-                    ${icon} ${pdf.filename}
-                </span>
-
-                <button
-                    class="delete-pdf"
-                    onclick="deletePDF('${pdf.uuid}')"
-                >
-                    ×
-                </button>
-
-            `;
-
-
-            pdfList.appendChild(
-                item
+        const isImage =
+            [
+                ".png",
+                ".jpg",
+                ".jpeg",
+                ".webp",
+                ".gif",
+                ".bmp"
+            ].some(
+                ext => lowerName.endsWith(ext)
             );
 
-        }
-    );
+        const icon =
+            isImage ? "🖼️" : "📄";
 
+        item.innerHTML = `
+
+            <input
+                type="checkbox"
+                class="pdf-checkbox"
+                value="${pdf.uuid}"
+                checked
+            >
+
+            <span
+                class="pdf-name"
+                title="${pdf.filename}"
+            >
+                ${icon} ${pdf.filename}
+            </span>
+
+            <button
+                class="delete-pdf"
+                onclick="deletePDF('${pdf.uuid}')"
+            >
+                ×
+            </button>
+
+        `;
+
+        pdfList.appendChild(item);
+    });
 }
 
 
@@ -153,40 +120,38 @@ function getSelectedPDFs() {
             ".pdf-checkbox:checked"
         );
 
-
     return Array.from(
         checkboxes
     ).map(
-        checkbox =>
-            checkbox.value
+        checkbox => checkbox.value
     );
-
 }
 
 
 // =========================
-// UPLOAD PDF
+// UPLOAD PDF / FILE
 // =========================
 
 pdfInput.addEventListener(
     "change",
     async function () {
 
-        const file =
-            this.files[0];
-
+        const file = this.files[0];
 
         if (!file) {
-
             return;
-
         }
 
-
         const allowedExtensions = [
-            ".pdf", ".txt", ".md",
-            ".png", ".jpg", ".jpeg",
-            ".webp", ".gif", ".bmp"
+            ".pdf",
+            ".txt",
+            ".md",
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".webp",
+            ".gif",
+            ".bmp"
         ];
 
         const lowerName =
@@ -204,25 +169,20 @@ pdfInput.addEventListener(
             );
 
             return;
-
         }
-
 
         const formData =
             new FormData();
-
 
         formData.append(
             "file",
             file
         );
 
-
         try {
 
             status.textContent =
                 "● Uploading...";
-
 
             const response =
                 await fetch(
@@ -230,16 +190,15 @@ pdfInput.addEventListener(
                     {
                         method: "POST",
 
-                        credentials: "same-origin",
+                        credentials:
+                            "same-origin",
 
                         body: formData
                     }
                 );
 
-
             const data =
                 await response.json();
-
 
             if (!response.ok) {
 
@@ -247,21 +206,16 @@ pdfInput.addEventListener(
                     data.detail ||
                     "Upload failed."
                 );
-
             }
-
 
             status.textContent =
                 "● Online";
-
 
             alert(
                 "File uploaded successfully!"
             );
 
-
             await loadPDFs();
-
         }
 
         catch (error) {
@@ -269,16 +223,12 @@ pdfInput.addEventListener(
             status.textContent =
                 "● Error";
 
-
             alert(
                 error.message
             );
-
         }
 
-
         this.value = "";
-
     }
 );
 
@@ -287,22 +237,16 @@ pdfInput.addEventListener(
 // DELETE PDF
 // =========================
 
-async function deletePDF(
-    uuid
-) {
+async function deletePDF(uuid) {
 
     const confirmed =
         confirm(
             "Delete this PDF?"
         );
 
-
     if (!confirmed) {
-
         return;
-
     }
-
 
     try {
 
@@ -312,14 +256,13 @@ async function deletePDF(
                 {
                     method: "DELETE",
 
-                    credentials: "same-origin"
+                    credentials:
+                        "same-origin"
                 }
             );
 
-
         const data =
             await response.json();
-
 
         if (!response.ok) {
 
@@ -327,12 +270,9 @@ async function deletePDF(
                 data.detail ||
                 "Delete failed."
             );
-
         }
 
-
         await loadPDFs();
-
     }
 
     catch (error) {
@@ -340,9 +280,7 @@ async function deletePDF(
         alert(
             error.message
         );
-
     }
-
 }
 
 
@@ -355,58 +293,57 @@ async function sendQuestion() {
     const question =
         questionInput.value.trim();
 
-
     if (!question) {
-
         return;
-
     }
-
 
     const selectedPDFs =
         getSelectedPDFs();
 
 
-    if (selectedPDFs.length === 0) {
+    /*
+       IMPORTANT:
 
-        const usePDF =
-            confirm(
-                "No file is selected. Ask General AI instead?"
-            );
+       If PDF is selected:
+       → AI answers using selected PDF(s)
+
+       If NO PDF is selected:
+       → AI automatically answers as General AI
+
+       No confirmation popup.
+    */
+
+    const usePDFs =
+        selectedPDFs.length > 0;
 
 
-        if (!usePDF) {
-
-            return;
-
-        }
-
-    }
-
-
+    // Remove welcome screen
     const welcome =
         document.querySelector(
             ".welcome-message"
         );
 
-
     if (welcome) {
-
         welcome.remove();
-
     }
 
 
+    // Show user's question
     addMessage(
         "user",
         question
     );
 
 
+    // Clear input
     questionInput.value = "";
 
+
+    // Disable send button
     sendBtn.disabled = true;
 
+
+    // Update status
     status.textContent =
         "● Thinking...";
 
@@ -419,7 +356,8 @@ async function sendQuestion() {
                 {
                     method: "POST",
 
-                    credentials: "same-origin",
+                    credentials:
+                        "same-origin",
 
                     headers: {
                         "Content-Type":
@@ -432,13 +370,12 @@ async function sendQuestion() {
                             question,
 
                         use_pdfs:
-                            selectedPDFs.length > 0,
+                            usePDFs,
 
                         pdf_uuids:
                             selectedPDFs
 
                     })
-
                 }
             );
 
@@ -453,10 +390,10 @@ async function sendQuestion() {
                 data.detail ||
                 "AI request failed."
             );
-
         }
 
 
+        // Show AI answer
         addMessage(
             "ai",
             data.answer,
@@ -477,17 +414,14 @@ async function sendQuestion() {
             error.message
         );
 
-
         status.textContent =
             "● Error";
-
     }
 
 
     sendBtn.disabled = false;
 
     questionInput.focus();
-
 }
 
 
@@ -506,7 +440,6 @@ function addMessage(
             "div"
         );
 
-
     message.className =
         `message ${type}`;
 
@@ -515,7 +448,6 @@ function addMessage(
         document.createElement(
             "div"
         );
-
 
     content.className =
         "message-content";
@@ -530,6 +462,7 @@ function addMessage(
     );
 
 
+    // Add sources only for AI answers
     if (
         type === "ai" &&
         sources &&
@@ -541,10 +474,8 @@ function addMessage(
                 "div"
             );
 
-
         sourceDiv.className =
             "sources";
-
 
         sourceDiv.innerHTML =
             "<strong>Sources:</strong>";
@@ -558,19 +489,15 @@ function addMessage(
                         "span"
                     );
 
-
                 sourceItem.className =
                     "source-item";
-
 
                 sourceItem.textContent =
                     "📄 " + source;
 
-
                 sourceDiv.appendChild(
                     sourceItem
                 );
-
             }
         );
 
@@ -578,7 +505,6 @@ function addMessage(
         content.appendChild(
             sourceDiv
         );
-
     }
 
 
@@ -589,7 +515,6 @@ function addMessage(
 
     chatMessages.scrollTop =
         chatMessages.scrollHeight;
-
 }
 
 
@@ -619,9 +544,7 @@ questionInput.addEventListener(
             event.preventDefault();
 
             sendQuestion();
-
         }
-
     }
 );
 
@@ -639,13 +562,9 @@ clearChatBtn.addEventListener(
                 "Clear all chat history?"
             );
 
-
         if (!confirmed) {
-
             return;
-
         }
-
 
         try {
 
@@ -655,14 +574,13 @@ clearChatBtn.addEventListener(
                     {
                         method: "DELETE",
 
-                        credentials: "same-origin"
+                        credentials:
+                            "same-origin"
                     }
                 );
 
-
             const data =
                 await response.json();
-
 
             if (!response.ok) {
 
@@ -670,7 +588,6 @@ clearChatBtn.addEventListener(
                     data.detail ||
                     "Could not clear chat."
                 );
-
             }
 
 
@@ -695,7 +612,6 @@ clearChatBtn.addEventListener(
                 </div>
 
             `;
-
         }
 
         catch (error) {
@@ -703,9 +619,7 @@ clearChatBtn.addEventListener(
             alert(
                 error.message
             );
-
         }
-
     }
 );
 
@@ -715,10 +629,14 @@ clearChatBtn.addEventListener(
 // =========================
 
 const micBtn =
-    document.getElementById("micBtn");
+    document.getElementById(
+        "micBtn"
+    );
 
 const voiceLangBtn =
-    document.getElementById("voiceLangBtn");
+    document.getElementById(
+        "voiceLangBtn"
+    );
 
 const SpeechRecognitionAPI =
     window.SpeechRecognition ||
@@ -726,6 +644,7 @@ const SpeechRecognitionAPI =
 
 
 const voiceLanguages = [
+
     {
         code: "en-US",
         label: "🎙️ English"
@@ -735,6 +654,7 @@ const voiceLanguages = [
         code: "ur-PK",
         label: "🎙️ اردو"
     }
+
 ];
 
 
@@ -747,11 +667,15 @@ let isListening = false;
 
 if (!SpeechRecognitionAPI) {
 
-    if (micBtn)
-        micBtn.style.display = "none";
+    if (micBtn) {
+        micBtn.style.display =
+            "none";
+    }
 
-    if (voiceLangBtn)
-        voiceLangBtn.style.display = "none";
+    if (voiceLangBtn) {
+        voiceLangBtn.style.display =
+            "none";
+    }
 
 }
 
@@ -760,9 +684,14 @@ else {
     recognition =
         new SpeechRecognitionAPI();
 
-    recognition.continuous = false;
 
-    recognition.interimResults = true;
+    recognition.continuous =
+        false;
+
+
+    recognition.interimResults =
+        true;
+
 
     recognition.lang =
         voiceLanguages[
@@ -770,11 +699,16 @@ else {
         ].code;
 
 
+    // =========================
+    // VOICE RESULT
+    // =========================
+
     recognition.addEventListener(
         "result",
         function (event) {
 
             let transcript = "";
+
 
             for (
                 let i = 0;
@@ -783,16 +717,20 @@ else {
             ) {
 
                 transcript +=
-                    event.results[i][0].transcript;
-
+                    event.results[i][0]
+                        .transcript;
             }
+
 
             questionInput.value =
                 transcript;
-
         }
     );
 
+
+    // =========================
+    // VOICE END
+    // =========================
 
     recognition.addEventListener(
         "end",
@@ -800,16 +738,24 @@ else {
 
             isListening = false;
 
-            micBtn.classList.remove(
-                "listening"
-            );
+
+            if (micBtn) {
+
+                micBtn.classList.remove(
+                    "listening"
+                );
+            }
+
 
             status.textContent =
                 "● Online";
-
         }
     );
 
+
+    // =========================
+    // VOICE ERROR
+    // =========================
 
     recognition.addEventListener(
         "error",
@@ -817,27 +763,35 @@ else {
 
             isListening = false;
 
-            micBtn.classList.remove(
-                "listening"
-            );
+
+            if (micBtn) {
+
+                micBtn.classList.remove(
+                    "listening"
+                );
+            }
+
 
             status.textContent =
                 "● Online";
 
 
             if (
-                event.error === "not-allowed"
+                event.error ===
+                "not-allowed"
             ) {
 
                 alert(
                     "Microphone access denied. Please allow microphone permission and try again."
                 );
-
             }
-
         }
     );
 
+
+    // =========================
+    // MICROPHONE BUTTON
+    // =========================
 
     micBtn.addEventListener(
         "click",
@@ -848,7 +802,6 @@ else {
                 recognition.stop();
 
                 return;
-
             }
 
 
@@ -864,9 +817,11 @@ else {
 
                 isListening = true;
 
+
                 micBtn.classList.add(
                     "listening"
                 );
+
 
                 status.textContent =
                     "● Listening...";
@@ -879,12 +834,14 @@ else {
                     "Could not start voice input:",
                     error
                 );
-
             }
-
         }
     );
 
+
+    // =========================
+    // CHANGE VOICE LANGUAGE
+    // =========================
 
     voiceLangBtn.addEventListener(
         "click",
@@ -901,7 +858,6 @@ else {
                 voiceLanguages[
                     voiceLangIndex
                 ].label;
-
         }
     );
 
