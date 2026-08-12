@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Awais Faraz AI Chatbot — Sign in</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/static/theme.css">
+    <link rel="stylesheet" href="/static/auth.css">
+</head>
+
+<body>
+
+<div class="auth-shell">
+
+    <!-- LEFT BRAND SECTION -->
+
+    <section class="auth-brand">
+
+        <div class="auth-brand-top">
+
+            <div class="brand-mark">
+                <span class="brand-mark-icon">◆</span>
+                <span>Awais Faraz AI Chatbot</span>
+            </div>
+
+        </div>
+
+        <div class="constellation" id="constellation" aria-hidden="true">
+        </div>
+
+        <div class="auth-brand-copy">
+
+            <h1>
+                Ask anything.
+                Get intelligent answers.
+            </h1>
+
+            <p>
+                Awais Faraz AI Chatbot helps you ask questions,
+                understand documents, and get intelligent AI-powered
+                answers in one place.
+            </p>
+
+            <div class="brand-stats">
+
+                <div class="brand-stat">
+                    <strong>Instant</strong>
+                    <span>AI answers</span>
+                </div>
+
+                <div class="brand-stat">
+                    <strong>Multi-doc</strong>
+                    <span>Document support</span>
+                </div>
+
+                <div class="brand-stat">
+                    <strong>Smart</strong>
+                    <span>AI conversations</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RIGHT AUTH SECTION -->
+
+    <section class="auth-panel">
+
+        <div class="auth-card" id="authCard">
+
+            <!-- LOGIN / SIGNUP TOGGLE -->
+
+            <div class="auth-toggle" role="tablist">
+
+                <button
+                    class="auth-toggle-btn active"
+                    id="tabLogin"
+                    role="tab"
+                    type="button"
+                >
+                    Sign in
+                </button>
+
+                <button
+                    class="auth-toggle-btn"
+                    id="tabSignup"
+                    role="tab"
+                    type="button"
+                >
+                    Create account
+                </button>
+
+                <span
+                    class="auth-toggle-pill"
+                    id="togglePill"
+                ></span>
+
+            </div>
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                class="auth-form active"
+                id="loginForm"
+                novalidate
+            >
+
+                <div class="form-head">
+
+                    <h2>Welcome back</h2>
+
+                    <p>
+                        Sign in to continue using
+                        Awais Faraz AI Chatbot.
+                    </p>
+
+                </div>
+
+
+                <label class="field">
+
+                    <span class="field-label">
+                        Email address
+                    </span>
+
+                    <input
+                        type="email"
+                        name="email"
+                        id="loginEmail"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </label>
+
+
+                <label class="field">
+
+                    <span class="field-label">
+                        Password
+                    </span>
+
+                    <div class="password-wrap">
+
+                        <input
+                            type="password"
+                            name="password"
+                            id="loginPassword"
+                            placeholder="••••••••"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-visibility"
+                            data-target="loginPassword"
+                            aria-label="Show password"
+                        >
+
+                            <svg
+                                class="eye-open"
+                                viewBox="0 0 24 24"
+                                width="18"
+                                height="18"
+                            >
+
+                                <path
+                                    fill="currentColor"
+                                    d="M12 5c-5.5 0-9.6 3.6-11 7 1.4 3.4 5.5 7 11 7s9.6-3.6 11-7c-1.4-3.4-5.5-7-11-7zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9zm0-7.2a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4z"
+                                />
+
+                            </svg>
+
+                        </button>
+
+                    </div>
+
+                </label>
+
+
+                <div
+                    class="form-error"
+                    id="loginError"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                    id="loginSubmit"
+                >
+
+                    <span class="btn-label">
+                        Sign in
+                    </span>
+
+                    <span class="btn-spinner"></span>
+
+                </button>
+
+            </form>
+
+
+            <!-- SIGNUP FORM -->
+
+            <form
+                class="auth-form"
+                id="signupForm"
+                novalidate
+            >
+
+                <div class="form-head">
+
+                    <h2>Create your account</h2>
+
+                    <p>
+                        Create your account and start
+                        chatting with AI.
+                    </p>
+
+                </div>
+
+
+                <label class="field">
+
+                    <span class="field-label">
+                        Full name
+                    </span>
+
+                    <input
+                        type="text"
+                        name="name"
+                        id="signupName"
+                        placeholder="Awais Faraz"
+                        autocomplete="name"
+                        required
+                    >
+
+                </label>
+
+
+                <label class="field">
+
+                    <span class="field-label">
+                        Email address
+                    </span>
+
+                    <input
+                        type="email"
+                        name="email"
+                        id="signupEmail"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </label>
+
+
+                <label class="field">
+
+                    <span class="field-label">
+                        Password
+                    </span>
+
+                    <div class="password-wrap">
+
+                        <input
+                            type="password"
+                            name="password"
+                            id="signupPassword"
+                            placeholder="At least 6 characters"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-visibility"
+                            data-target="signupPassword"
+                            aria-label="Show password"
+                        >
+
+                            <svg
+                                class="eye-open"
+                                viewBox="0 0 24 24"
+                                width="18"
+                                height="18"
+                            >
+
+                                <path
+                                    fill="currentColor"
+                                    d="M12 5c-5.5 0-9.6 3.6-11 7 1.4 3.4 5.5 7 11 7s9.6-3.6 11-7c-1.4-3.4-5.5-7-11-7zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9zm0-7.2a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4z"
+                                />
+
+                            </svg>
+
+                        </button>
+
+                    </div>
+
+                </label>
+
+
+                <div
+                    class="form-error"
+                    id="signupError"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                    id="signupSubmit"
+                >
+
+                    <span class="btn-label">
+                        Create account
+                    </span>
+
+                    <span class="btn-spinner"></span>
+
+                </button>
+
+            </form>
+
+
+            <p class="auth-footnote">
+
+                By continuing, you agree to use
+                Awais Faraz AI Chatbot.
+
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script src="/static/auth.js"></script>
+
+</body>
+
+</html>
