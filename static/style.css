@@ -465,12 +465,11 @@ textarea {
     .message-content {
         max-width: 80%;
     }
-
 }
 
 
 /* =========================================================
-   MOBILE
+   MOBILE APP LAYOUT
    ========================================================= */
 
 @media (max-width: 700px) {
@@ -479,28 +478,44 @@ textarea {
     body {
         width: 100%;
         height: 100%;
+        margin: 0;
+        padding: 0;
         overflow: hidden;
+    }
+
+    body {
+        position: fixed;
+        inset: 0;
     }
 
     .app {
-        display: flex;
-        flex-direction: column;
+        position: fixed;
+        inset: 0;
+
         width: 100%;
         height: 100dvh;
-        min-height: 100vh;
+        min-height: 100dvh;
+
+        display: flex;
+        flex-direction: column;
+
         overflow: hidden;
     }
 
 
-    /* ---------- MOBILE SIDEBAR ---------- */
+    /* =====================================================
+       MOBILE SIDEBAR
+       ===================================================== */
 
     .sidebar {
         width: 100%;
         height: auto;
-        max-height: 38vh;
-        flex-shrink: 0;
+        max-height: 24dvh;
+        min-height: 0;
 
-        padding: 14px;
+        flex: 0 0 auto;
+
+        padding: 10px 12px;
 
         border-right: none;
         border-bottom: 1px solid #1f2937;
@@ -510,74 +525,95 @@ textarea {
     }
 
     .logo {
-        margin-bottom: 16px;
+        margin-bottom: 9px;
         gap: 9px;
     }
 
     .logo-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 9px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
     }
 
     .logo h2 {
-        font-size: 17px;
+        font-size: 15px;
     }
 
     .logo span {
-        font-size: 10px;
+        font-size: 9px;
     }
 
     .upload-section h3,
     .pdf-list-section h3 {
-        font-size: 11px;
-    }
-
-    .upload-btn {
-        padding: 10px;
-        font-size: 13px;
-    }
-
-    .pdf-list-section {
-        margin-top: 15px;
-        max-height: 18vh;
-    }
-
-    .pdf-item {
-        padding: 8px;
-        font-size: 12px;
+        font-size: 10px;
         margin-bottom: 5px;
     }
 
-    .clear-btn {
+    .upload-btn {
         padding: 8px;
         font-size: 12px;
-        margin-top: 8px;
+    }
+
+    .upload-hint {
+        display: none;
+    }
+
+    .pdf-list-section {
+        margin-top: 10px;
+        max-height: 11dvh;
+        overflow-y: auto;
+    }
+
+    .pdf-item {
+        padding: 6px 8px;
+        margin-bottom: 4px;
+        font-size: 11px;
+    }
+
+    .clear-btn {
+        padding: 6px;
+        margin-top: 5px;
+        font-size: 11px;
     }
 
 
-    /* ---------- CHAT ---------- */
+    /* =====================================================
+       CHAT
+       ===================================================== */
 
     .chat-area {
         width: 100%;
-        flex: 1;
+        min-width: 0;
         min-height: 0;
+
+        flex: 1 1 auto;
+
+        display: flex;
+        flex-direction: column;
+
         overflow: hidden;
     }
 
 
-    /* ---------- HEADER ---------- */
+    /* =====================================================
+       MOBILE HEADER
+       ===================================================== */
 
     .chat-header {
         width: 100%;
-        height: 58px;
-        flex-shrink: 0;
-        padding: 0 12px;
+        height: 50px;
+        min-height: 50px;
+
+        flex: 0 0 50px;
+
+        padding: 0 11px;
+
         gap: 8px;
     }
 
     .chat-header h1 {
-        font-size: 16px;
+        font-size: 15px;
+        line-height: 1.2;
     }
 
     .chat-header p {
@@ -585,120 +621,202 @@ textarea {
     }
 
     .status {
-        font-size: 11px;
+        margin-left: auto;
+        font-size: 10px;
     }
 
 
-    /* ---------- MESSAGES ---------- */
+    /* =====================================================
+       MOBILE CHAT
+       ===================================================== */
 
     .chat-messages {
         width: 100%;
-        padding: 14px 10px;
+        min-height: 0;
+
+        flex: 1 1 auto;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        padding: 11px 9px;
+
+        -webkit-overflow-scrolling: touch;
     }
 
     .welcome-message {
-        margin-top: 50px;
+        margin-top: 35px;
+        padding: 0 10px;
     }
 
     .welcome-icon {
-        font-size: 42px;
-        margin-bottom: 10px;
+        font-size: 34px;
+        margin-bottom: 8px;
     }
 
     .welcome-message h2 {
-        font-size: 20px;
+        font-size: 18px;
+        margin-bottom: 5px;
     }
 
     .welcome-message p {
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-    .message {
-        margin-bottom: 13px;
-    }
-
-    .message-content {
-        max-width: 88%;
-        padding: 10px 12px;
-        border-radius: 12px;
-        font-size: 13px;
+        font-size: 12px;
         line-height: 1.45;
     }
 
+    .message {
+        width: 100%;
+        margin-bottom: 11px;
+    }
 
-    /* ---------- INPUT ---------- */
+    .message-content {
+        max-width: 90%;
+        padding: 9px 11px;
+        border-radius: 11px;
+        font-size: 12px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    /* =====================================================
+       MOBILE QUESTION BAR
+       ===================================================== */
 
     .chat-input-area {
+        position: relative;
+
         width: 100%;
-        gap: 6px;
-        padding: 8px 8px 3px;
+
+        flex: 0 0 auto;
+
+        display: flex;
+        align-items: center;
+
+        gap: 5px;
+
+        padding: 6px 7px 4px;
+
+        margin: 0;
+
+        background: white;
+
+        border-top: 1px solid #e5e7eb;
+
+        box-sizing: border-box;
+
+        padding-bottom:
+            max(
+                4px,
+                env(safe-area-inset-bottom)
+            );
     }
 
     #questionInput {
+        flex: 1 1 auto;
+
         width: 100%;
         min-width: 0;
-        padding: 10px;
-        font-size: 13px;
+
+        height: 40px;
+        min-height: 40px;
+        max-height: 40px;
+
+        resize: none;
+
+        padding: 9px 10px;
+
+        margin: 0;
+
         border-radius: 10px;
+
+        font-size: 13px;
+        line-height: 20px;
+
+        box-sizing: border-box;
     }
 
-    .send-btn,
-    .mic-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 17px;
+    .mic-btn,
+    .send-btn {
+        width: 40px;
+        min-width: 40px;
+
+        height: 40px;
+        min-height: 40px;
+
+        flex: 0 0 40px;
+
         border-radius: 9px;
+
+        font-size: 17px;
     }
 
     .input-info {
-        font-size: 9px;
-        padding: 5px;
+        width: 100%;
+        height: 16px;
+
+        flex: 0 0 16px;
+
+        padding: 1px 4px;
+        margin: 0;
+
+        font-size: 8px;
+        line-height: 14px;
+
+        overflow: hidden;
     }
 
     .voice-lang-btn {
         font-size: 9px;
     }
-
 }
 
 
 /* =========================================================
-   SMALL MOBILE PHONES
+   SMALL PHONES
    ========================================================= */
 
 @media (max-width: 480px) {
 
     .sidebar {
-        max-height: 34vh;
-        padding: 11px;
+        max-height: 21dvh;
+        padding: 8px 10px;
     }
 
     .logo {
-        margin-bottom: 12px;
+        margin-bottom: 6px;
     }
 
     .logo-icon {
-        width: 32px;
-        height: 32px;
-        font-size: 13px;
+        width: 30px;
+        height: 30px;
     }
 
     .logo h2 {
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .upload-btn {
-        padding: 9px;
-        font-size: 12px;
+        padding: 7px;
+        font-size: 11px;
     }
 
     .pdf-list-section {
-        max-height: 15vh;
+        max-height: 9dvh;
+    }
+
+    .pdf-item {
+        padding: 5px 7px;
+        font-size: 10px;
     }
 
     .chat-header {
-        height: 52px;
+        height: 47px;
+        min-height: 47px;
+        flex-basis: 47px;
+
+        padding: 0 10px;
     }
 
     .chat-header h1 {
@@ -706,23 +824,23 @@ textarea {
     }
 
     .status {
-        font-size: 10px;
+        font-size: 9px;
     }
 
     .chat-messages {
-        padding: 10px 8px;
+        padding: 9px 7px;
     }
 
     .welcome-message {
-        margin-top: 35px;
+        margin-top: 25px;
     }
 
     .welcome-icon {
-        font-size: 35px;
+        font-size: 30px;
     }
 
     .welcome-message h2 {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .welcome-message p {
@@ -731,31 +849,46 @@ textarea {
 
     .message-content {
         max-width: 92%;
-        padding: 9px 10px;
+        padding: 8px 10px;
         font-size: 12px;
     }
 
     .chat-input-area {
-        padding: 6px 6px 2px;
-        gap: 5px;
+        padding: 5px 6px 3px;
+
+        padding-bottom:
+            max(
+                3px,
+                env(safe-area-inset-bottom)
+            );
     }
 
     #questionInput {
-        padding: 9px;
+        height: 38px;
+        min-height: 38px;
+        max-height: 38px;
+
+        padding: 8px 9px;
+
         font-size: 12px;
     }
 
-    .send-btn,
-    .mic-btn {
+    .mic-btn,
+    .send-btn {
         width: 38px;
+        min-width: 38px;
+
         height: 38px;
+        min-height: 38px;
+
+        flex: 0 0 38px;
+
         font-size: 15px;
     }
 
     .input-info {
-        font-size: 8px;
+        display: none;
     }
-
 }
 
 
@@ -766,12 +899,12 @@ textarea {
 @media (max-width: 360px) {
 
     .sidebar {
-        max-height: 32vh;
-        padding: 9px;
+        max-height: 19dvh;
+        padding: 7px 9px;
     }
 
     .logo h2 {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .logo span {
@@ -779,13 +912,19 @@ textarea {
     }
 
     .upload-btn {
-        font-size: 11px;
-        padding: 8px;
+        font-size: 10px;
+        padding: 7px;
     }
 
     .pdf-item {
-        font-size: 11px;
-        padding: 7px;
+        font-size: 10px;
+        padding: 5px;
+    }
+
+    .chat-header {
+        height: 45px;
+        min-height: 45px;
+        flex-basis: 45px;
     }
 
     .chat-header h1 {
@@ -793,87 +932,28 @@ textarea {
     }
 
     .message-content {
-        max-width: 94%;
+        max-width: 93%;
         font-size: 11px;
     }
 
     #questionInput {
+        height: 36px;
+        min-height: 36px;
+        max-height: 36px;
+
         font-size: 11px;
     }
 
-    .send-btn,
-    .mic-btn {
+    .mic-btn,
+    .send-btn {
         width: 36px;
+        min-width: 36px;
+
         height: 36px;
+        min-height: 36px;
+
+        flex-basis: 36px;
+
         font-size: 14px;
     }
-
-}
-/* =========================================================
-   MOBILE SEARCH BAR FIX
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    .chat-input-area {
-        position: relative;
-        padding: 6px 8px 4px !important;
-        margin: 0 !important;
-        gap: 5px !important;
-    }
-
-    #questionInput {
-        min-height: 40px !important;
-        max-height: 42px !important;
-        height: 40px !important;
-        padding: 9px 10px !important;
-        margin: 0 !important;
-    }
-
-    .send-btn,
-    .mic-btn {
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        min-height: 40px !important;
-    }
-
-    .input-info {
-        padding: 2px 4px !important;
-        margin: 0 !important;
-        height: 18px !important;
-        line-height: 14px !important;
-        font-size: 8px !important;
-    }
-
-}
-
-
-/* Small phones */
-@media (max-width: 480px) {
-
-    .chat-input-area {
-        padding: 4px 6px 2px !important;
-        gap: 4px !important;
-    }
-
-    #questionInput {
-        height: 38px !important;
-        min-height: 38px !important;
-        max-height: 38px !important;
-        padding: 8px 9px !important;
-    }
-
-    .send-btn,
-    .mic-btn {
-        width: 38px !important;
-        height: 38px !important;
-        min-width: 38px !important;
-        min-height: 38px !important;
-    }
-
-    .input-info {
-        display: none !important;
-    }
-
 }
