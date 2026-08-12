@@ -809,3 +809,71 @@ textarea {
     }
 
 }
+/* =========================================================
+   MOBILE SEARCH BAR FIX
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .chat-input-area {
+        position: relative;
+        padding: 6px 8px 4px !important;
+        margin: 0 !important;
+        gap: 5px !important;
+    }
+
+    #questionInput {
+        min-height: 40px !important;
+        max-height: 42px !important;
+        height: 40px !important;
+        padding: 9px 10px !important;
+        margin: 0 !important;
+    }
+
+    .send-btn,
+    .mic-btn {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+    }
+
+    .input-info {
+        padding: 2px 4px !important;
+        margin: 0 !important;
+        height: 18px !important;
+        line-height: 14px !important;
+        font-size: 8px !important;
+    }
+
+}
+
+
+/* Small phones */
+@media (max-width: 480px) {
+
+    .chat-input-area {
+        padding: 4px 6px 2px !important;
+        gap: 4px !important;
+    }
+
+    #questionInput {
+        height: 38px !important;
+        min-height: 38px !important;
+        max-height: 38px !important;
+        padding: 8px 9px !important;
+    }
+
+    .send-btn,
+    .mic-btn {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+    }
+
+    .input-info {
+        display: none !important;
+    }
+
+}
